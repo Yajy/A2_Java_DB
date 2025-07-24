@@ -36,9 +36,8 @@ class StudentServiceTest {
 
         Student student = new Student(1, "John Doe", 20, "123 Main St", courses);
 
-        String result = studentService.addStudent(student);
+        studentService.addStudent(student);
 
-        assertEquals("Student added successfully", result);
         assertEquals(1, studentService.getAllStudents().size());
     }
 
@@ -52,11 +51,14 @@ class StudentServiceTest {
 
         Student student = new Student(2, " ", 20, "123 Main St", courses);
 
-        String result = studentService.addStudent(student);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            studentService.addStudent(student);
+        });
 
-        assertEquals("Full name cannot be empty", result);
+        assertEquals("Full name cannot be empty", exception.getMessage());
         assertEquals(0, studentService.getAllStudents().size());
     }
+
 
     @Test
     void testAddDuplicateRollNumber() {
@@ -70,9 +72,13 @@ class StudentServiceTest {
         Student student2 = new Student(3, "Bob", 22, "Street 2", courses); // same rollNumber
 
         studentService.addStudent(student1);
-        String result = studentService.addStudent(student2);
 
-        assertEquals("Student with this roll number already exists", result);
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            studentService.addStudent(student2);
+        });
+
+        assertEquals("Student with this roll number already exists", exception.getMessage());
         assertEquals(1, studentService.getAllStudents().size());
     }
+
 }

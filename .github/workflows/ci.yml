@@ -24,4 +24,4 @@ jobs:
         run: javac src/main/java/com/example/Java_MySql/HEllow.java
 
       - name: Run HEllow.class
-        run: java -cp src/main/java com.example.Java_MySql.HEllow
+        run: java -cp src/main/java com.example.javamysql.HEllow
