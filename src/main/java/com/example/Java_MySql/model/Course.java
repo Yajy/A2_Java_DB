@@ -1,4 +1,4 @@
-package com.example.Java_MySql.Models;
+package com.example.Java_MySql.model;
 
 
 import jakarta.persistence.Entity;
