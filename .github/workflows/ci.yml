@@ -1,0 +1,27 @@
+name: Build and run HEllow.java
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Compile HEllow.java
+        run: javac src/main/java/com/example/Java_MySql/HEllow.java
+
+      - name: Run HEllow.class
+        run: java -cp src/main/java com.example.Java_MySql.HEllow
