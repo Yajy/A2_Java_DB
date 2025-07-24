@@ -1,9 +1,8 @@
-package com.example.Java_MySql.service;
+package com.example.javamysql.service;
 
 
-import com.example.Java_MySql.model.Student;
-import com.example.Java_MySql.model.Course;
-import com.example.Java_MySql.repository.StudentRepository;
+import com.example.javamysql.model.Student;
+import com.example.javamysql.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

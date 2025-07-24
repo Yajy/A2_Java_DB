@@ -1,9 +1,9 @@
-package com.example.Java_MySql.Java_MySql;
+package com.example.javamysql;
 
-import com.example.Java_MySql.model.Course;
-import com.example.Java_MySql.model.Student;
-import com.example.Java_MySql.repository.StudentRepository;
-import com.example.Java_MySql.service.StudentService;
+import com.example.javamysql.model.Course;
+import com.example.javamysql.model.Student;
+import com.example.javamysql.repository.StudentRepository;
+import com.example.javamysql.service.StudentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

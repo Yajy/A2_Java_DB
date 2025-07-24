@@ -1,4 +1,4 @@
-package com.example.Java_MySql.model;
+package com.example.javamysql.model;
 
 import java.util.Comparator;
 
