@@ -45,44 +45,42 @@ public class StudentService {
     /**
      * Add student to in-memory collection after validation
      */
-    public String addStudent(Student student) {
+    public void addStudent(Student student) {
         // Validate fields
         if (student.getFullName() == null || student.getFullName().trim().isEmpty()) {
-            return "Full name cannot be empty";
+            throw new IllegalArgumentException("Full name cannot be empty");
         }
         if (student.getAddress() == null || student.getAddress().trim().isEmpty()) {
-            return "Address cannot be empty";
+            throw new IllegalArgumentException("Address cannot be empty");
         }
         if (student.getAge() <= 0) {
-            return "Age must be a positive integer";
+            throw new IllegalArgumentException("Age must be a positive integer");
         }
         if (student.getRollNumber() <= 0) {
-            return "Roll number must be a positive integer";
+            throw new IllegalArgumentException("Roll number must be a positive integer");
         }
         if (student.getCourses() == null || student.getCourses().size() != 4) {
-            return "Student must choose exactly 4 courses";
+            throw new IllegalArgumentException("Student must choose exactly 4 courses");
         }
-        // Check uniqueness of roll number
         boolean exists = students.stream()
                 .anyMatch(s -> s.getRollNumber() == student.getRollNumber());
         if (exists) {
-            return "Student with this roll number already exists";
+            throw new IllegalArgumentException("Student with this roll number already exists");
         }
 
+
         students.add(student);
-        return "Student added successfully";
     }
 
     /**
      * Delete student by roll number
      */
-    public String deleteStudent(int rollNumber) {
+    public void deleteStudent(int rollNumber) {
         boolean removed = students.removeIf(s -> s.getRollNumber() == rollNumber);
-        if (removed) {
-            return "Student deleted successfully";
-        } else {
-            return "Student with roll number " + rollNumber + " not found";
+        if (!removed) {
+            throw new IllegalArgumentException("Student with roll number " + rollNumber + " not found");
         }
+
     }
 
     /**
