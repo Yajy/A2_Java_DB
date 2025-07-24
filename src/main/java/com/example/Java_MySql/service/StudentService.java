@@ -22,6 +22,11 @@ public class StudentService {
         this.students = new TreeSet<>();
     }
 
+    public void setStudentRepository(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
+
     /**
      * Load data from DB into memory when app starts
      */
