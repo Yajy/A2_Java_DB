@@ -1,4 +1,4 @@
-package com.example.Java_MySql;
+package com.example.javamysql;
 
 public class HEllow {
     public static void main(String[] args) {
