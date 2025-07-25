@@ -1,5 +1,6 @@
 package com.example.javamysql.controller;
 
+import com.example.javamysql.dto.StudentDTO;
 import com.example.javamysql.model.Student;
 import com.example.javamysql.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +39,12 @@ public class StudentController {
      * List all students, with optional sort
      */
     @GetMapping
-    public List<Student> getAllStudents(
+    public List<StudentDTO> getAllStudents(
             @RequestParam(required = false) String sortBy,
             @RequestParam(required = false, defaultValue = "asc") String order) {
 
         if (sortBy == null || sortBy.isBlank()) {
-            return studentService.getAllStudents(); // default sort
+            return studentService.getAllStudentsAsDTO(); // default sort
         }
 
         Comparator<Student> comparator;
@@ -68,7 +69,7 @@ public class StudentController {
             comparator = comparator.reversed();
         }
 
-        return studentService.getAllStudents(comparator);
+        return studentService.getAllStudentsAsDTO(comparator);
     }
 
     /**

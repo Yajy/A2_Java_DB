@@ -17,9 +17,9 @@ public class Student implements Comparable<Student> {
     @Column(nullable = false)
     private String address;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "student_courses", // join table name
+            name = "student_courses",
             joinColumns = @JoinColumn(name = "student_roll_number"),
             inverseJoinColumns = @JoinColumn(name = "course_code")
     )

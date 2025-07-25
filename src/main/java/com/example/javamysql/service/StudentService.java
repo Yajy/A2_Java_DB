@@ -5,6 +5,9 @@ import com.example.javamysql.model.Student;
 import com.example.javamysql.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.example.javamysql.dto.StudentDTO;
+import java.util.stream.Collectors;
+
 
 import java.util.*;
 
@@ -98,4 +101,44 @@ public class StudentService {
         sortedList.sort(comparator);
         return sortedList;
     }
+
+    /**
+     * Get all students as DTOs (avoid lazy-loading issues)
+     */
+    public List<StudentDTO> getAllStudentsAsDTO() {
+        return students.stream().map(student -> {
+            Set<String> courseCodes = student.getCourses()
+                    .stream().map(course -> course.getCode())
+                    .collect(Collectors.toSet());
+            return new StudentDTO(
+                    student.getRollNumber(),
+                    student.getFullName(),
+                    student.getAge(),
+                    student.getAddress(),
+                    courseCodes
+            );
+        }).collect(Collectors.toList());
+    }
+
+    /**
+     * Get all students as DTOs, sorted by custom comparator
+     */
+    public List<StudentDTO> getAllStudentsAsDTO(Comparator<Student> comparator) {
+        return students.stream()
+                .sorted(comparator)
+                .map(student -> {
+                    Set<String> courseCodes = student.getCourses()
+                            .stream().map(course -> course.getCode())
+                            .collect(Collectors.toSet());
+                    return new StudentDTO(
+                            student.getRollNumber(),
+                            student.getFullName(),
+                            student.getAge(),
+                            student.getAddress(),
+                            courseCodes
+                    );
+                }).collect(Collectors.toList());
+    }
+
+
 }

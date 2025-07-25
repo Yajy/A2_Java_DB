@@ -22,8 +22,9 @@ public class GlobalExceptionHandler {
     // Catch all other exceptions
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleAll(Exception ex) {
+        ex.printStackTrace();
         Map<String, String> response = new HashMap<>();
-        response.put("error", "Something went wrong. Please try again.");
+        response.put("error", ex.getMessage());
         return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
