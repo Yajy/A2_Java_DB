@@ -1,5 +1,8 @@
 package com.example.javamysql.controller;
 
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+
 import com.example.javamysql.dto.StudentDTO;
 import com.example.javamysql.model.Student;
 import com.example.javamysql.service.StudentService;
@@ -9,7 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
 import java.util.List;
+import jakarta.validation.Valid;
 
+@Slf4j
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/students")
 public class StudentController {
@@ -21,8 +27,9 @@ public class StudentController {
      * Add a new student
      */
     @PostMapping
-    public ResponseEntity<String> addStudent(@RequestBody Student student) {
+    public ResponseEntity<String> addStudent(@Valid @RequestBody StudentDTO student) {
         studentService.addStudent(student);
+        log.info("Adding student: {}", student);
         return ResponseEntity.ok("Student added successfully");
     }
 
@@ -35,15 +42,13 @@ public class StudentController {
         return ResponseEntity.ok("Student deleted successfully");
     }
 
-    /**
-     * List all students, with optional sort
-     */
+
     @GetMapping
     public List<StudentDTO> getAllStudents(
             @RequestParam(required = false) String sortBy,
             @RequestParam(required = false, defaultValue = "asc") String order) {
 
-        if (sortBy == null || sortBy.isBlank()) {
+        if (!StringUtils.isNotBlank(sortBy)) {
             return studentService.getAllStudentsAsDTO(); // default sort
         }
 
@@ -79,6 +84,12 @@ public class StudentController {
     public ResponseEntity<String> saveToDB() {
         studentService.saveToDB();
         return ResponseEntity.ok("Students saved to DB");
+    }
+
+    @GetMapping("/Queue")
+    public ResponseEntity<String> getQueue() {
+        studentService.showQueue();
+        return ResponseEntity.ok("Queue is not implemented yet");
     }
 
     /**
