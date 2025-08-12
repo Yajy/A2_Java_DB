@@ -89,3 +89,11 @@ public class StudentServiceImpl implements StudentService {
 
 
 }
+
+
+/*
+    1. error handling from backend to frontend
+    2. proper error messages in frontend
+    3. show data in table format in frontend
+    4. in memory caching for valid courses
+ */
