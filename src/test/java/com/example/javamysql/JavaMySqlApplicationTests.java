@@ -1,4 +1,4 @@
-package com.example.Java_MySql;
+package com.example.javamysql;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
