@@ -21,7 +21,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Compile HEllow.java
-        run: javac src/main/java/com/example/Java_MySql/HEllow.java
+        run: javac src/main/java/com/example/javamysql/HEllow.java
 
       - name: Run HEllow.class
         run: java -cp src/main/java com.example.javamysql.HEllow
