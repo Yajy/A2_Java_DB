@@ -27,7 +27,6 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void addStudent(StudentDTO student) {
         log.info("Adding student: {}", student.getFullName());
-        Student enitity = StudentMapper.toEntity(student);
         // Validate student name
         if (student.getFullName() == null || student.getFullName().trim().isEmpty()) {
             throw new IllegalArgumentException("Full name cannot be empty");
@@ -37,10 +36,11 @@ public class StudentServiceImpl implements StudentService {
         boolean exists = students.stream()
                 .anyMatch(s -> s.getRollNumber() == student.getRollNumber());
         if (exists) {
-            throw new IllegalArgumentException("Student with this roll number already exists");
+            throw new DuplicateStudentException("Student with roll number " + student.getRollNumber() + " already exists");
         }
 
-        students.add(enitity);
+        Student entity = StudentMapper.toEntity(student);
+        students.add(entity);
     }
 
 
@@ -49,7 +49,7 @@ public class StudentServiceImpl implements StudentService {
     public void deleteStudent(int rollNumber) {
         boolean removed = students.removeIf(s -> s.getRollNumber() == rollNumber);
         if (!removed) {
-            throw new IllegalArgumentException("Student with roll number " + rollNumber + " not found");
+            throw new StudentNotFoundException("Student with roll number " + rollNumber + " not found");
         }
     }
 
